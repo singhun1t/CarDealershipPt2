@@ -21,6 +21,14 @@ public class SalesContract extends Contract{
         return processingFee;
     }
 
+    public double getRecordingFee() {
+        return recordingFee;
+    }
+
+    public double getSalesTaxAmount() {
+        return salesTaxAmount;
+    }
+
     @Override
     public double getTotalPrice() {
         return getVehicle().getPrice() + salesTaxAmount + recordingFee + getProcessingFee();
@@ -46,5 +54,14 @@ public class SalesContract extends Contract{
         } else {
             return 0.0;
         }
+    }
+
+    public boolean isFinanceOption() {
+        return financeOption;
+    }
+
+
+    public void setFinanceOption(boolean financeOption) {
+        this.financeOption = financeOption;
     }
 }
