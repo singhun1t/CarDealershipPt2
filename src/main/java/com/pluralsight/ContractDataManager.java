@@ -1,7 +1,6 @@
-package pluralsight;
+package com.pluralsight;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class ContractDataManager {
     private String contractFile = "contracts.csv";

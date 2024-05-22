@@ -1,13 +1,12 @@
-package pluralsight;
+package com.pluralsight;
 
 public class LeaseContract extends Contract{
     protected double expectedEndingValue = getVehicle().getPrice()*0.50;
     protected double leaseFee = getVehicle().getPrice() * 0.07;
 
-    public LeaseContract(String date, String customerName, String customerEmail, Vehicle vehicle, double expectedEndingValue, double leaseFee) {
+    public LeaseContract(String date, String customerName, String customerEmail, Vehicle vehicle) {
         super(date, customerName, customerEmail, vehicle);
-        this.expectedEndingValue = expectedEndingValue;
-        this.leaseFee = leaseFee;
+
     }
 
     public double getExpectedEndingValue() {

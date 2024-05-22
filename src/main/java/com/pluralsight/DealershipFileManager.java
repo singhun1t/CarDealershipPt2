@@ -1,16 +1,16 @@
-package pluralsight;
+package com.pluralsight;
 
 
 
 import java.io.*;
 
 public class DealershipFileManager {
-    String file = "dealership.csv";
+    String file = "contracts.csv";
 
 
     public Dealership getDealership() {
 
-        Dealership dealership = null;
+        Dealership dealership = new Dealership(" "," "," ");
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             String line;

@@ -1,13 +1,14 @@
-package pluralsight;
+package com.pluralsight;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
 public class UserInterface {
     Dealership dealership;
-    private ShoppingCart shoppingCart = new ShoppingCart();
+    private final ShoppingCart shoppingCart = new ShoppingCart();
 
     private void init(){
         DealershipFileManager loader = new DealershipFileManager();
@@ -44,7 +45,8 @@ public class UserInterface {
             System.out.println("8. Add vehicles");
             System.out.println("9. Remove vehicle");
             System.out.println("10. View Cart/Checkout");
-            System.out.println("11. Quit");
+            System.out.println("11. Buy/Lease vehicle");
+            System.out.println("12. Quit");
 
             choice = scanner.nextInt();
 
@@ -80,6 +82,9 @@ public class UserInterface {
                     processCheckoutRequest();
                     break;
                 case 11:
+                    processSale();
+                    break;
+                case 12:
                     running = false;
                     break;
             }
@@ -236,5 +241,44 @@ public class UserInterface {
         } else {
             System.out.println("Your cart is empty");
         }
+    }
+    public void processSale(){
+        List<Vehicle> vehicles = dealership.getAllVehicles();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the date");
+        String userDate = scanner.nextLine();
+        System.out.println("Enter your name");
+        String userName = scanner.nextLine();
+        System.out.println("Enter your email address");
+        String userEmail = scanner.nextLine();
+        System.out.println("Enter vin of the vehicle");
+        int userVin = scanner.nextInt();
+        scanner.nextLine();
+        Vehicle vehicle = null;
+        for (Vehicle vehicle1 : vehicles) {
+            if (userVin == vehicle1.getVin()){
+                vehicle = vehicle1;
+            }
+
+        }
+        System.out.println("Would you like to buy or lease a vehicle");
+        String userPurchaseOption = scanner.nextLine();
+        System.out.println("Are you going to finance? true or false");
+        boolean userFinance = scanner.nextBoolean();
+        Contract contract = null;
+        if(userPurchaseOption.equalsIgnoreCase("buy")){
+            contract = new SalesContract(userDate,userName,userEmail,vehicle,userFinance);
+        }else if(userPurchaseOption.equalsIgnoreCase("lease")){
+            contract = new LeaseContract(userDate,userName,userEmail,vehicle);
+        }
+
+        ContractDataManager contractDataManager = new ContractDataManager();
+        contractDataManager.saveContract(contract);
+        dealership.removeVehicle(vehicle);
+
+        DealershipFileManager dealershipFileManager = new DealershipFileManager();
+        dealershipFileManager.saveDealership(dealership, dealershipFileManager.file);
+
+
     }
 }

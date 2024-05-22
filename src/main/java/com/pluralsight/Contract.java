@@ -1,4 +1,4 @@
-package pluralsight;
+package com.pluralsight;
 
 public abstract class Contract {
     protected String date;
