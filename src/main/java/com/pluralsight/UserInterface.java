@@ -263,17 +263,23 @@ public class UserInterface {
         }
         System.out.println("Would you like to buy or lease a vehicle");
         String userPurchaseOption = scanner.nextLine();
-        System.out.println("Are you going to finance? true or false");
-        boolean userFinance = scanner.nextBoolean();
-        Contract contract = null;
+        boolean userFinance;
+        Contract contract;
         if(userPurchaseOption.equalsIgnoreCase("buy")){
+            System.out.println("Are you going to finance? true or false");
+             userFinance = scanner.nextBoolean();
             contract = new SalesContract(userDate,userName,userEmail,vehicle,userFinance);
+            ContractDataManager contractDataManager = new ContractDataManager();
+            contractDataManager.saveContract(contract);
         }else if(userPurchaseOption.equalsIgnoreCase("lease")){
             contract = new LeaseContract(userDate,userName,userEmail,vehicle);
+            ContractDataManager contractDataManager = new ContractDataManager();
+            contractDataManager.saveContract(contract);
         }
 
-        ContractDataManager contractDataManager = new ContractDataManager();
-        contractDataManager.saveContract(contract);
+
+
+
         dealership.removeVehicle(vehicle);
 
         DealershipFileManager dealershipFileManager = new DealershipFileManager();

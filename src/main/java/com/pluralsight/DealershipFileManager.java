@@ -5,7 +5,7 @@ package com.pluralsight;
 import java.io.*;
 
 public class DealershipFileManager {
-    String file = "contracts.csv";
+    String file = "dealership.csv";
 
 
     public Dealership getDealership() {
